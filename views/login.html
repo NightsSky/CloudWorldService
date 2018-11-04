@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎登录</title>
+    <link href="css/login.css" rel="stylesheet">
+    <script src="js/vue.js"> </script>
+    <script src="https://unpkg.com/flyio/dist/fly.min.js"></script>
+</head>
+<body>
+<!--面板-->
+<div id="panel">
+    <!--面板的头部-->
+    <div class="panel-top">
+        <h2>wellcome cloudworld </h2>
+    </div>    <!--面板的主要内容-->
+    <div class="panel-content">
+        <div class="int">
+            <label><img src="img/user.png"></label>
+            <input v-model="username" type="text" placeholder="你的手机号/用户名">
+        </div>
+        <div class="int">
+            <label><img src="img/user.png"></label>
+            <input v-model="password" type="password" placeholder="输入密码">
+        </div>
+        <!--配置信息-->
+        <div class="setting">
+            <a href="#" class="auto-login">
+                <input type="checkbox">下次自动登录
+            </a>
+            <a href="#" class="forget-pwd">忘记密码</a>
+        </div>
+        <div class="login">
+            <button v-on:click = "login">登录</button>
+        </div>
+        <div class="reg">还没账号?<a href="#">马上注册</a>
+        </div>
+    </div>
+    <!--面板的底部-->
+    <div class="panel-footer">
+        <span>社交账号登录:</span>
+        <img src="img/user.png">
+        <img src="img/user.png">
+        <img src="img/user.png">
+
+    </div>
+</div>
+
+
+<script>
+    var vm = new Vue({
+        el: '.panel-content',
+        data: {
+            username: "",
+            password: ""
+
+        },
+        methods: {
+            login: function() {
+                console.log(this.username + this.password)
+                fly.get('/user?username=this.username&password=this.password')
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        }
+    })
+    //引入fly实例
+    var fly=require("flyio")
+</script>
+</body>
+</html>
